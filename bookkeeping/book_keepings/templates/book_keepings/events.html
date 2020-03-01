@@ -1,0 +1,17 @@
+{% extends 'book_keepings/base.html' %}
+
+{% block content %}
+  <p>Events</p>
+
+  <ul>
+    {% for event in events %}
+      <li>{{ event }}</li>
+      <button name="Volunteer" type="button">Volunteer</button>
+    {% empty %}
+      <li>No events yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'book_keepings:new_event' %}">Add a new Event</a>
+
+{% endblock content %}
