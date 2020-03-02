@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- This page will be accessed from the log in page
+  IFF the user does not have an account -->
+<html>
+  <head>
+    <title>Create a New Account</title>
+
+    <link href="css/nav-bar.css" rel="stylesheet">
+
+    <meta content="">
+    <style></style>
+
+  </head>
+  <body>
+
+    <!-- Begin the Navigation Bar -->
+    <div>
+      <ul id="nav-bar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">About Plumbus Labs</a></li>
+        <!-- The last "Login" tab will be on the right-->
+        <li style="float:right" class="active"><a href="login.html">Log In</a></li>
+      </ul>
+    </div>
+    <!-- End the Navigation Bar -->
+
+    <!-- Begin Account Creation Form-->
+    <form action="/action_page.php"> <!-- Clicking the "Submit" button will send the form-data to a page called "action_page.php" -->
+      <fieldset>
+        <legend>Create a New Account</legend>
+
+        <!-- I'm going to do this one a bit differently, seperating the labels and the forms
+          This is probably the way to do it in the end so that each can be CSSed differently
+          This was taken from https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_input_test -->
+        
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="your@email.com"><br><br>
+      
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" placeholder="999-999-9999"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password"><br>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password"><br><br>
+        
+        <input type="submit" value="Create Donor Account">
+        <input type="submit" value="Create Volunteer Account">
+
+      </fieldset>
+    </form>
+    
+  </body>
+</html>
