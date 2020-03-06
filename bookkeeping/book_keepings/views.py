@@ -28,6 +28,7 @@ def new_event(request):
 	context = {'form' : form}
 	return render(request, 'book_keepings/new_event.html', context)
 
+@login_required
 def add_vol(request):
 	if request.method != 'POST':
 		temp = request.GET['submit']
