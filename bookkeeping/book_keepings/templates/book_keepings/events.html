@@ -5,13 +5,24 @@
 
   <ul>
     {% for event in events %}
+    <form action="{% url 'book_keepings:add_vol' %}" id="{{ event|safe|slice:":5" }}" method="get">
       <li>{{ event }}</li>
-      <button name="Volunteer" type="button">Volunteer</button>
+      <button name="submit" value="{{ event|safe|slice:":5" }}" form="{{ event|safe|slice:":5" }}" id="{{ event }}" onclick="this.form.submit(); this.disabled=true;">Volunteer</button>
+    </form>
     {% empty %}
       <li>No events yet.</li>
     {% endfor %}
+
   </ul>
 
   <a href="{% url 'book_keepings:new_event' %}">Add a new Event</a>
 
+<script>
+
+</script>
+  <!-- <script type="text/javascript">
+      function disable(id) {
+        document.getElementById(id).disabled = true;
+      }
+  </script> -->
 {% endblock content %}

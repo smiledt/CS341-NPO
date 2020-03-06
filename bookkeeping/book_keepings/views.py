@@ -27,3 +27,16 @@ def new_event(request):
 
 	context = {'form' : form}
 	return render(request, 'book_keepings/new_event.html', context)
+
+def add_vol(request):
+	if request.method != 'POST':
+		temp = request.GET['submit']
+		# print(temp)
+		temp_obj = Event.objects.get(name__startswith=temp)
+		# print(temp_obj.num_volunteers)
+		if (temp_obj.num_volunteers_needed - temp_obj.num_volunteers) <= 0: #We have enough volunteers, do nothing
+			return redirect('book_keepings:events')
+		else:
+			temp_obj.num_volunteers += 1
+			temp_obj.save()
+			return redirect('book_keepings:events')
