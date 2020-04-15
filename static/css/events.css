@@ -1,0 +1,7 @@
+#no_events{
+  color: red;
+}
+
+#event_table table, th, td{
+  border: 2px solid blue;
+}
