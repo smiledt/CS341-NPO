@@ -2,6 +2,15 @@
   color: red;
 }
 
-#event_table table, th, td{
+#event_table table, th, td {
   border: 2px solid blue;
+}
+
+.volunteer_button_cell{
+  border: none;
+}
+
+#volunteer_button{
+  display: inline;
+  color: red;
 }
