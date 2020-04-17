@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date, time
+from datetime import date
 # Create your models here.
 
 
@@ -30,8 +30,8 @@ class Event(models.Model):
 
     def __str__(self):
         """ Return string rep of model"""
-        return (self.name + ", " + self.date_of_event + ", "
-                + self.start_time + "-" + self.end_time + ", "
+        return (self.name + ", " + str(self.date_of_event) + ", "
+                + str(self.start_time) + "-" + str(self.end_time) + ", "
                 + self.location + ", "
                 + self.description + ", "
                 + "Volunteers Wanted: " + str(self.num_volunteers_total - self.num_volunteers))
