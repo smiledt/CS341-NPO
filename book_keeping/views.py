@@ -1,35 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import Event
-from .forms import EventForm, DonationForm
+from .forms import EventForm, DeleteEventForm, DonationForm
 from django.contrib.auth.decorators import login_required
-from users.models import UserAccountInfo
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
-
-
 def index(request):
-    """ Home Page for Book Keeping app, which is the event page """
+    # Home Page for Book Keeping Soft
     return render(request, 'book_keeping/index.html')
 
 
 def events(request):
-    """ Show Events """
+    # Show Events
     events = Event.objects.order_by('date_of_event')
-    events_dict = {'events': events, 'is_donor': False}
-    this_user = request.user
-    if str(this_user) != 'AnonymousUser':  # Somebody is logged in
-        current_donor = this_user.useraccountinfo.is_donor()
-        if current_donor:
-            events_dict = {'events': events, 'is_donor': True}
-            print('IT WORKED!')
-
+    events_dict = {'events': events}
     return render(request, 'book_keeping/events.html', events_dict)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def new_event(request):
-    """ Add a new event """
+    # Add a new event
     if request.method != 'POST':
         form = EventForm()
     else:
@@ -41,13 +31,39 @@ def new_event(request):
     context = {'form': form}
     return render(request, 'book_keeping/new_event.html', context)
 
+@user_passes_test(lambda u: u.is_superuser)
+def delete_event(request):
+    if request.method != 'POST':
+        form = DeleteEventForm()
+    else:
+        form = DeleteEventForm(request.POST)
+        if form.is_valid:
+            data = request.POST.copy()
+            name_delete_event = data.get('name')
+            Event.objects.filter(name=name_delete_event).delete()
+            return redirect('book_keeping:events')
+
+    context = {'form': form}
+    return render(request, 'book_keeping/delete_event.html', context)
+
+@login_required
+def donate_event(request):
+    #Donate
+    if request.method != 'POST':
+        form = DonationForm()
+    else:
+        form = DonationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_keeping:events')
+
+    context = {'form': form}
+    return render(request, 'book_keeping/donate.html', context)
 
 @login_required
 def add_vol(request):
-    """ Add a volunteer to an event """
-    # This method needs to be tweaked and changed by Derek
     if request.method != 'POST':
-        temp = request.GET['volunteer']
+        temp = request.GET['submit']
         # print(temp)
         temp_obj = Event.objects.get(name__startswith=temp)
         # print(temp_obj.num_volunteers)
@@ -58,29 +74,3 @@ def add_vol(request):
             temp_obj.num_volunteers += 1
             temp_obj.save()
             return redirect('book_keeping:events')
-
-
-@login_required
-def donate(request):
-    """ Create a donation """
-    if request.method != 'POST':
-        form = DonationForm()
-        event_name = request.GET['donate']
-        context = {'form': form, 'event_name': event_name}
-
-        return render(request, 'book_keeping/donate.html', context)
-    else:
-        temp_event = Event.objects.get(name__startswith=request.POST['donate'])
-        form = DonationForm(data=request.POST)
-        form.event_name = temp_event  # Do we need this?
-        # form.fields.update([('event_name', temp_event)])
-        # form = DonationForm(data=request.POST, initial={'event_name': temp_event})
-        print(temp_event)
-        if form.is_valid():
-            donation = form.save(commit=False)
-            donation.event_name = temp_event
-            donation.save()
-            return redirect('book_keeping:events')
-
-    context = {'form': form}
-    return render(request, 'book_keeping/donate.html', context)

@@ -1,0 +1,12 @@
+{% extends 'book_keeping/base.html' %}
+
+{% block content %}
+  <p>Delete an Account:</p>
+
+  <form action="{% url 'users:delete_account' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Delete Account</button>
+  </form>
+
+{% endblock content %}
