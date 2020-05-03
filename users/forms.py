@@ -20,3 +20,6 @@ class RegForm(UserCreationForm):
 class DeleteAccountForm(forms.Form):
     username = forms.CharField()
 
+# class SummaryForm(forms.Form):
+#     username = forms.CharField()
+

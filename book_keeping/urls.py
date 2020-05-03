@@ -13,4 +13,5 @@ urlpatterns = [
     path('add_vol/', views.add_vol, name='add_vol'),
     path('delete_event/', views.delete_event, name='delete_event'),
     path('donate/', views.donate_event, name='donate_event'),
+    path('summary/', views.summary_report, name='summary_report'),
 ]

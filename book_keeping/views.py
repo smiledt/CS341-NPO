@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Event
-from .forms import EventForm, DeleteEventForm, DonationForm
+from .models import Event, Donation
+from .forms import EventForm, DeleteEventForm, DonationForm, SummaryForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -45,6 +46,30 @@ def delete_event(request):
 
     context = {'form': form}
     return render(request, 'book_keeping/delete_event.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def summary_report(request):
+    # Summary Report
+    if request.method != 'POST':
+        form = SummaryForm()
+    else:
+        form = SummaryForm(request.POST)
+
+        if form.is_valid():
+            data = request.POST.copy()
+            username_report = data.get('username')
+            d = Donation.objects.filter(username=username_report)
+
+            total = 0
+            for i in d:
+                total = total + i.donation
+            
+            messages.info(request, 'Donation Total: %.2f' % total)
+
+            return redirect('book_keeping:summary_report')
+
+    context = {'form' : form }
+    return render(request, 'book_keeping/summary_report.html', context)
 
 @login_required
 def donate_event(request):

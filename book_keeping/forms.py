@@ -15,3 +15,6 @@ class DonationForm(forms.ModelForm):
 	class Meta:
 		model = Donation
 		fields = ['username', 'donation', 'donation_types', 'name_event']
+
+class SummaryForm(forms.Form):
+    username = forms.CharField()
