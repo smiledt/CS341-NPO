@@ -1,0 +1,20 @@
+{% extends 'book_keeping/base.html' %}
+
+{% block content %}
+  <p>Summary Report:</p>
+
+  <form action="{% url 'book_keeping:summary_report' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Get Report</button>
+  </form>
+
+  {% if messages %}
+  <ul clas="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+{% endblock content %}

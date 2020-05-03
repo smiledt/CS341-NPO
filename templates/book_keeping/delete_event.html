@@ -1,0 +1,12 @@
+{% extends 'book_keeping/base.html' %}
+
+{% block content %}
+  <p>Delete an Event:</p>
+
+  <form action="{% url 'book_keeping:delete_event' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Delete Event</button>
+  </form>
+
+{% endblock content %}

@@ -1,34 +1,66 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import UserForm, UserAccountForm
+from .forms import RegForm, DeleteAccountForm
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 
 def register(request):
-    """ Register a new user """
-
-    registered = False
+    # Register a new user
     if request.method != 'POST':
-        form = UserForm()
-        account_form = UserAccountForm()
+        form = RegForm()
+
     else:
-        form = UserForm(data=request.POST)
-        account_form = UserAccountForm(data=request.POST)
+        form = RegForm(data=request.POST)
 
-        if form.is_valid() and account_form.is_valid():
+        if form.is_valid():
             new_user = form.save()
-            new_user.set_password(new_user.password)
-            new_user.save()
-            account = account_form.save(commit=False)
-            account.user = new_user
-            account.save()
-
-            registered = True
             login(request, new_user)
             return redirect('book_keeping:index')
-        else:
-            print(form.errors, account_form.errors)
-    context = {'form': form, 'account_form': account_form,
-               'registered': registered}
+    context = {'form': form}
     return render(request, 'users/register.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_account(request):
+    # Delete User Account
+    if request.method != 'POST':
+        form = DeleteAccountForm()
+    else:
+        form = DeleteAccountForm(request.POST)
+
+        if form.is_valid():
+            data = request.POST.copy()
+            username_delete = data.get('username')
+            User.objects.filter(username=username_delete).delete()
+            return redirect('book_keeping:index')
+
+    context = {'form' : form}
+    return render(request, 'users/delete_account.html', context)
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def summary_report(request):
+# 	# Summary Report
+# 	if request.method != 'POST':
+# 		form = SummaryForm()
+# 	else:
+# 		form = SummaryForm(request.POST)
+
+# 		if form.is_valid():
+# 			data = request.POST.copy()
+# 			username_report = data.get('username')
+# 			d = Donation.objects.filter(username=username_report)
+# 			print('\n')
+# 			print(d)
+# 			print('\n')
+
+# 			return redirect('book_keeping:summary_report')
+
+# 	context = {'form' : form }
+# 	return render(request, 'users/summary_report.html', context)
+
+
+
+
+
