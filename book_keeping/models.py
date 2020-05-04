@@ -12,6 +12,11 @@ class Donation(models.Model):
     donation_types = models.CharField(max_length=1, choices=D_TYPES)
     name_event = models.CharField(max_length=200, blank=True)
 
+class VolunteerEvent(models.Model):
+    username = models.CharField(max_length=50)
+    event_name = models.CharField(max_length=200)
+    number_hours = models.IntegerField()
+
 class Event(models.Model):
     """
     This is an event that the admin Creates

@@ -14,4 +14,6 @@ urlpatterns = [
     path('delete_event/', views.delete_event, name='delete_event'),
     path('donate/', views.donate_event, name='donate_event'),
     path('summary/', views.summary_report, name='summary_report'),
+    path('volunteer/', views.volunteer_event, name='volunteer_event'),
+    path('unvolunteer/', views.unvolunteer_event, name='unvolunteer_event'),
 ]

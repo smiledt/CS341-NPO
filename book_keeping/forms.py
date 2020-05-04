@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, Donation
+from .models import Event, Donation, VolunteerEvent
 
 class EventForm(forms.ModelForm):
 	class Meta:
@@ -18,3 +18,12 @@ class DonationForm(forms.ModelForm):
 
 class SummaryForm(forms.Form):
     username = forms.CharField()
+
+class VolunteerForm(forms.ModelForm):
+	class Meta:
+		model = VolunteerEvent
+		fields = ['username', 'event_name', 'number_hours']
+
+class RemoveVolunteerForm(forms.Form):
+	username = forms.CharField()
+	event = forms.CharField()
