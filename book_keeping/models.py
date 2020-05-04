@@ -1,7 +1,21 @@
 from django.db import models
 from datetime import date, time
 # Create your models here.
+class Donation(models.Model):
+    username = models.CharField(max_length=50)
+    donation = models.DecimalField(max_digits= 10, decimal_places=2)
+    D_TYPES = (
+        ('U', 'Unrestricted'),
+        ('R', 'Restricted'),
+    )
 
+    donation_types = models.CharField(max_length=1, choices=D_TYPES)
+    name_event = models.CharField(max_length=200, blank=True)
+
+class VolunteerEvent(models.Model):
+    username = models.CharField(max_length=50)
+    event_name = models.CharField(max_length=200)
+    number_hours = models.IntegerField()
 
 class Event(models.Model):
     """

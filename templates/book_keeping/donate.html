@@ -1,0 +1,12 @@
+{% extends 'book_keeping/base.html' %}
+
+{% block content %}
+  <p>Donate to Event:</p>
+
+  <form action="{% url 'book_keeping:donate_event' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Donate to Event</button>
+  </form>
+
+{% endblock content %}

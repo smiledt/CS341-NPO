@@ -16,3 +16,8 @@ class RegForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email',
                   'phoneNumber', 'job', 'password1', 'password2')
+
+class DeleteAccountForm(forms.Form):
+    username = forms.CharField()
+
+
