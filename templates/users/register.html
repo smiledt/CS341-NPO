@@ -1,20 +1,12 @@
 {% extends "book_keeping/base.html" %}
 
 {% block content %}
+  <form method="post" action="{% url 'users:register' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
 
-<div class="jumbotron">
-  {% if registered %}
-    <h1>Thank you for registering.</h1>
-  {% else %}
-    <h1>New Account</h1>
-
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      {{ account_form.as_p }}
-      <input type="submit" name="" value="Register">
-    </form>
-    {% endif %}
-</div>
+    <button name="submit">Register</button>
+    <input type="hidden" name="next" value="{% url 'book_keeping:index' %}" />
+  </form>
 
 {% endblock content %}

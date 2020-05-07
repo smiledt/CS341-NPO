@@ -1,0 +1,12 @@
+{% extends 'book_keeping/base.html' %}
+
+{% block content %}
+  <p>Remove Volunteer for an Event:</p>
+
+  <form action="{% url 'book_keeping:unvolunteer_event' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Remove my Volunteer</button>
+  </form>
+
+{% endblock content %}
