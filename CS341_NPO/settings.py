@@ -28,7 +28,7 @@ SECRET_KEY = '4*%kg8(p-sv%=13_$7se_13s67-gbue96+ml1px@dbts2)yv^)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] # SECURITY WARNING: This should be changed to specific urls for production
 
 
 # Application definition
