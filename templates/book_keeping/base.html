@@ -1,4 +1,5 @@
 {% load bootstrap4 %}
+{% load static %}
 
 <!doctype html>
 <html lang="en">
@@ -30,6 +31,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'book_keeping:summary_report' %}">
             Summary Report</a></li>
+        <li class="nav-item">
+              <a class="nav-link" href="{% static "files/user_manual.docx" %}">
+            User Manual</a></li>
       </ul>
 
       <ul class="navbar-nav ml-auto">
