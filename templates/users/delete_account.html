@@ -3,12 +3,12 @@
 {% block content %}
   {% if username %}
   <h1>Are you sure you wuld like to delete {{ username }}?</h1>
-  <h2>To confirm, please enter the username below:</h2>
+  <h2>To confirm, please re-enter the username below:</h2>
 
   <form id="delete" name="delete" action="{% url 'users:delete_account' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="delete" value="{{ user_name }}" form="delete" onclick="this.form.submit();">Delete Account</button>
+    <button name="delete" value="{{ username }}" form="delete" onclick="this.form.submit();">Delete Account</button>
   </form>
   {% endif %}
 {% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'book_keeping/base.html' %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static "css/events.css" %}"/>
+  <div class="container">
+    <div class="jumbotron">
+
+      <h2>Events that you're volunteered for:</h2>
+      <div id="event_table">
+        {% if events %} <!-- Check if there are any events in the dict -->
+          <table>
+            <thead>
+              <th>Event Name</th>
+              <th>Hours volunteering</th>
+            </thead>
+            {% for evnt in events %} <!-- NOTE the different spelling of evnt -->
+            <form action="{% url 'book_keeping:unvolunteer_event' %}" id="{{ evnt.event_name }}" method="get" name="{{ evnt.event_name }}">
+              <tr>
+                <td>{{ evnt.event_name }}</td>
+                <td>{{ evnt.number_hours }}</td>
+                <td class="button_cell">
+                  <button name="unvolunteer" value="{{ evnt.event_name }}" form="{{ evnt.event_name }}" class="btn btn-primary" id="{{ evnt.event_name }}" onclick="this.form.submit();">Unvolunteer</button>
+                </td>
+              </tr>
+            </form>
+            {% endfor %}
+          </table>
+        {% else %} <!-- There are no events in the dict -->
+          <h4 id="no_events">You are not currently volunteering for any events. Get started today!</h4>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

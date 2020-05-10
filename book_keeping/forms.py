@@ -18,7 +18,7 @@ class DeleteEventForm(forms.ModelForm):
 class DonationForm(forms.ModelForm):
     class Meta:
         model = Donation
-        fields = ['username', 'donation', 'donation_types', 'name_event']
+        fields = ['donation', 'donation_type']
 
 
 class SummaryForm(forms.Form):

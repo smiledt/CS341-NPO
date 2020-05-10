@@ -9,14 +9,5 @@
     {{ form.as_p }}
     <button name="donate" value="{{ event_name }}" form="donate" onclick="this.form.submit();">Donate!</button>
   </form>
-  <br>
-
-  <p>Donate to Event:</p> <!-- TODO: Use or delete this code -->
-
-  <form action="{% url 'book_keeping:donate_event' %}" method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Donate to Event</button>
-  </form>
-
+  
 {% endblock content %}
