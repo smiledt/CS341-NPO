@@ -11,13 +11,10 @@
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
 </head>
-<!-- NOTE: This base is loaded for STANDARD users, not admins -->
-
 <body>
-  <!-- This is the nav bar -->
   <nav class= "navbar navbar-expand-md navbar-light bg-light mb-4 border">
 
-    <a class="navbar-brand" href="{% url 'book_keeping:index' %}">Plumbus Labs</a>
+    <a class="navbar-brand" href="{% url 'book_keeping:index' %}">Plumbus Labs - Administrator Access</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse"
       data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -26,22 +23,28 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'book_keeping:events' %}">
+          <a class="nav-link" href="{% url 'book_keeping:admin_events' %}">
             Events</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:list_accounts' %}">
+            Delete Account</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'book_keeping:summary_report' %}">
+            Summary Report</a></li>
         <li class="nav-item">
               <a class="nav-link" href="{% static "files/user_manual.docx" %}">
             User Manual</a></li>
       </ul>
 
       <ul class="navbar-nav ml-auto">
-        {% if user.is_authenticated %} <!-- Check if the user is logged in -->
+        {% if user.is_authenticated %}
           <li class="nav-item">
             <span class="navbar-text}">Hello, {{ user.username }}.</span>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
           </li>
-        {% else %} <! -- User is not logged in -->
+        {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'users:register' %}">Register</a>
           </li>

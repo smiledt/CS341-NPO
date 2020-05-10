@@ -17,4 +17,5 @@ urlpatterns = [
     # Registration Page url
     path('register/', views.register, name='register'),
     path('delete_account/', views.delete_account, name='delete_account'),
+    path('list_accounts/', views.list_accounts, name='list_accounts')
 ]

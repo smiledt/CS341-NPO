@@ -1,0 +1,44 @@
+{% extends 'book_keeping/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static "css/events.css" %}"/>
+  <div class="container">
+    <div class="jumbotron">
+
+      <h1>Events</h1>
+      <div id="event_table">
+        {% if events %} <!-- Check if there are any events in the dict -->
+          <table>
+            <thead>
+              <th>Event Name</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>Volunteers Needed</th>
+            </thead>
+            {% for evnt in events %} <!-- NOTE the different spelling of evnt -->
+              <form action="{% url 'book_keeping:delete_event' %}" id="{{ evnt.name }}" method="get" name="{{ evnt.name }}">
+                <tr>
+                  <td>{{ evnt.name }}</td>
+                  <td>{{ evnt.date_of_event }}</td>
+                  <td>{{ evnt.start_time }}</td>
+                  <td>{{ evnt.end_time }}</td>
+                  <td>{{ evnt.location }}</td>
+                  <td>{{ evnt.description }}</td>
+                  <td>{{ evnt.get_volunteers_needed }}</td>
+                  <td class="delete_button_cell">
+                    <button name="delete" value="{{ evnt.name }}" form="{{ evnt.name }}" class="btn btn-primary" id="{{ evnt.name }}" onclick="this.form.submit();">Delete</button>
+                  </td>
+                </tr>
+              </form>
+            {% endfor %}
+          </table>
+        {% else %} <!-- There are no events in the dict -->
+          <h4 id="no_events">There are currently no events scheduled. Stay tuned!</h4>
+        {% endif %}
+      </div>
+  <a href="{% url 'book_keeping:new_event' %}">Add a new Event</a>
+{% endblock content %}
