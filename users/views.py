@@ -56,22 +56,27 @@ def delete_account(request):
         return render(request, 'users/delete_account.html', context)
     else:
         form = DeleteAccountForm(data=request.POST)
-        initial_user = User.objects.get(username=request.POST['delete'])
-        if form.is_valid():
-            users = User.objects.order_by('username')
-            data = request.POST.copy()
-            username_delete = data.get('username')
-            print(username_delete)
-            print(initial_user.username)
-            if (username_delete == initial_user.username):
-                message = 'User was deleted.'
-                User.objects.filter(username=username_delete).delete()
-                users_dict = {'users': users, 'message': message}
-                return render(request, 'users/user_list.html', users_dict)
-            else:  # The usernames did not match
-                error = 'Usernames did not match. No user was deleted.'
-                users_dict = {'users': users, 'message': error}
-                return render(request, 'users/user_list.html', users_dict)
+        users = User.objects.order_by('username')
+        if 'delete' not in request.POST:
+            error = 'Username cannot be empty'
+            users_dict = {'users': users, 'message': error}
+            return render(request, 'users/user_list.html', users_dict)
+        else:
+            initial_user = User.objects.get(username=request.POST['delete'])
+            if form.is_valid():
+                data = request.POST.copy()
+                username_delete = data.get('username')
+                print(username_delete)
+                print(initial_user.username)
+                if (username_delete == initial_user.username):
+                    message = 'User was deleted.'
+                    User.objects.filter(username=username_delete).delete()
+                    users_dict = {'users': users, 'message': message}
+                    return render(request, 'users/user_list.html', users_dict)
+                else:  # The usernames did not match
+                    error = 'Usernames did not match. No user was deleted.'
+                    users_dict = {'users': users, 'message': error}
+                    return render(request, 'users/user_list.html', users_dict)
 
     context = {'form': form}
     return render(request, 'users/delete_account.html', context)
