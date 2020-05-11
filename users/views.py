@@ -31,7 +31,6 @@ def register(request):
             login(request, new_user)
             return redirect('book_keeping:index')
         else:
-            print("Something broke!")  # TODO: Debugging, delete this
             print(form.errors, account_form.errors)
     context = {'form': form, 'account_form': account_form,
                'registered': registered}

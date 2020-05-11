@@ -31,7 +31,6 @@ def events(request, error="", message=""):
         current_donor = this_user.useraccountinfo.is_donor()
         if current_donor:
             donor_test = True
-            print('IT WORKED!')  # TODO: Debug code, delete
 
     events_dict = {'events': events, 'message': message,
                    'is_donor': donor_test, 'error_message': error}
@@ -67,7 +66,6 @@ def add_vol(request):
         event_name = request.GET['volunteer']
         form = VolunteerForm()
         event = Event.objects.get(name=event_name)
-        print(event.num_volunteers)  # TODO: Debugging code
         # If we have enough volunteers, do nothing
         if (event.num_volunteers_total - event.num_volunteers) <= 0:
             return events(request, error="We do not need any more volunteers for that event. Thank you!")
@@ -83,11 +81,7 @@ def add_vol(request):
             # Grab the event object
             event = Event.objects.get(name=request.POST['volunteer'])
             volunteer_event.event_name = event.name
-            # TODO: Debugging code, delete later
-            print(volunteer_event.event_name)
             volunteer_event.username = request.user.username
-            print(volunteer_event.username)
-
             test_volunteer = VolunteerEvent.objects.filter(
                 username=volunteer_event.username)
             e2 = Event.objects.get(name=event.name)
@@ -96,12 +90,9 @@ def add_vol(request):
             if test_volunteer.exists():
                 for i in test_volunteer:
                     e2 = Event.objects.get(name=i.event_name)
-                    print("Event: {f} Start time: {a} End Time: {b} Start Time {c} End Time: {d} Can volunteer: {e}".format(
-                        f=e2.name, a=event.start_time, b=event.end_time, c=e2.start_time, d=e2.end_time, e=can_volunteer))  # TODO: Debugging code, delete this
                     if((event.start_time == e2.start_time) or (event.end_time == e2.end_time)):
                         can_volunteer = False
-                        # TODO: Debugging code, delete later.
-                        print("Conflict detected")
+
                         if (event.name == e2.name):
                             return events(request, error="You cannot volunteer for the same event twice.")
                         else:
@@ -133,11 +124,9 @@ def unvolunteer_list(request):
 
 @login_required
 def unvolunteer_event(request):
-    """ Unovlunteers the user from the event """
-    print("TESTING")
+    """ Unvolunteers the user from the event """
     if request.method == 'POST':
         print("Shouldn't be post!!")  # TODO: Debug code, delete later
-
     else:
         event_name = request.GET['unvolunteer']
         user = request.user
@@ -217,13 +206,10 @@ def donate(request):
             # Grab the event object
             event = Event.objects.get(name=request.POST['donate'])
             new_donation.name_event = event.name
-            # TODO: Debugging code, delete later
-            print(new_donation.name_event)
+
             new_donation.username = request.user.username  # Grab the current user
             new_donation.save()
             return events(request, message="Thank you for your donation of $" + str(new_donation.donation) +".")
-        else:
-            print("SOMETHING WENT WRONG")  # TODO: Debugging code, delete later
 
     context = {'form': form}
     return render(request, 'book_keeping/donate.html', context)

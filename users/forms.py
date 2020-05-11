@@ -34,20 +34,5 @@ class UserAccountForm(forms.ModelForm):
         model = UserAccountInfo
         fields = ('job',)
 
-
-# class RegForm(UserCreationForm):  TODO: Either use or delete this code
-#     first_name = forms.CharField(max_length=30, required=True)
-#     last_name = forms.CharField(max_length=30, required=True)
-#     email = forms.EmailField(max_length=254, help_text="Valid email address.")
-#     phoneNumber = forms.CharField(
-#         max_length=12, required=False, help_text="Optional")
-#     job = forms.CharField(max_length=10, required=True,
-#                           help_text="Volunteer or Donor")
-#
-#     class Meta:
-#         model = User
-#         fields = ('username', 'first_name', 'last_name', 'email',
-#                   'phoneNumber', 'job', 'password1', 'password2')
-
 class DeleteAccountForm(forms.Form):
     username = forms.CharField(required=True)
