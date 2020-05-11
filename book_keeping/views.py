@@ -38,10 +38,10 @@ def events(request, error="", message=""):
     return render(request, 'book_keeping/events.html', events_dict)
 
 
-def admin_events(request):
+def admin_events(request, message=""):
     """ Displays events on the admin page """
     events = Event.objects.order_by('date_of_event')
-    events_dict = {'events': events}
+    events_dict = {'events': events, 'message': message}
     return render(request, 'book_keeping/admin_events.html', events_dict)
 
 
@@ -160,11 +160,15 @@ def delete_event(request):
         return render(request, 'book_keeping/delete_event.html', context)
     else:
         form = DeleteEventForm(request.POST)
+        initial_event = Event.objects.get(name=request.POST['delete'])
         if form.is_valid:
             data = request.POST.copy()
             name_delete_event = data.get('name')
-            Event.objects.filter(name=name_delete_event).delete()
-            return redirect('book_keeping:admin_events')
+            if (name_delete_event != initial_event.name):
+                return admin_events(request, message="The event names were not the same. Nothing was deleted.")
+            else:
+                Event.objects.filter(name=name_delete_event).delete()
+                return redirect('book_keeping:admin_events')
 
     context = {'form': form}
     return render(request, 'book_keeping/delete_event.html', context)

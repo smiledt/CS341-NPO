@@ -60,6 +60,9 @@
       {% block page_header %}{% endblock page_header %}
     </div>
     <div>
+      {% if message %} <!-- There was a different message -->
+        <h5 style="color:Blue">{{ message }}</h3>
+      {% endif %}
       {% block content %}{% endblock content %}
     </div>
   </main>

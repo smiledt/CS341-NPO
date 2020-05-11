@@ -50,4 +50,4 @@ class UserAccountForm(forms.ModelForm):
 #                   'phoneNumber', 'job', 'password1', 'password2')
 
 class DeleteAccountForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(required=True)
