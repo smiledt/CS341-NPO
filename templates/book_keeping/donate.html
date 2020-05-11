@@ -1,12 +1,13 @@
 {% extends 'book_keeping/base.html' %}
 
 {% block content %}
-  <p>Donate to Event:</p>
-
-  <form action="{% url 'book_keeping:donate_event' %}" method='post'>
+  {% if event_name %}
+    <h1>New Donation to {{ event_name }}</h1>
+  {% endif %}
+  <form id="donate" name="donate" action="{% url 'book_keeping:donate' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Donate to Event</button>
+    <button name="donate" value="{{ event_name }}" form="donate" onclick="this.form.submit();">Donate!</button>
   </form>
-
+  
 {% endblock content %}

@@ -1,12 +1,12 @@
 {% extends 'book_keeping/base.html' %}
 
 {% block content %}
-  <p>Volunteer for an Event:</p>
+  <h3>Volunteer for {{ event.name }}:</h3>
 
-  <form action="{% url 'book_keeping:volunteer_event' %}" method='post'>
+  <form id="volunteer" name="volunteer" action="{% url 'book_keeping:add_vol' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Volunteer</button>
+    <button name="volunteer" value="{{ event.name }}" form="volunteer" onclick="this.form.submit();">Volunteer</button>
   </form>
 
 {% endblock content %}

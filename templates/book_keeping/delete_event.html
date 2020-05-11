@@ -1,12 +1,14 @@
-{% extends 'book_keeping/base.html' %}
+{% extends 'book_keeping/admin_base.html' %}
 
 {% block content %}
-  <p>Delete an Event:</p>
+  {% if event_name %}
+    <h1>Are you sure you wuld like to delete {{ event_name }}?</h1>
+    <h2>To confirm, please re-enter the event name below:</h2>
 
-  <form action="{% url 'book_keeping:delete_event' %}" method='post'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Delete Event</button>
-  </form>
-
+      <form id="delete" name="delete" action="{% url 'book_keeping:delete_event' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="delete" value="{{ event_name }}" form="delete" onclik="this.form.submit();">Delete Event</button>
+      </form>
+    {% endif %}
 {% endblock content %}

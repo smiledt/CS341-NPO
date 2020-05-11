@@ -1,0 +1,38 @@
+{% extends 'book_keeping/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static "css/events.css" %}"/>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Users</h1>
+      <div id="user_table">
+        {% if users %} <!-- Check if there are any users in the dict -->
+          <table>
+            <thead>
+              <th>User Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Date Joined</th>
+            </thead>
+            {% for usr in users %} <!-- NOTE the different spelling of usr -->
+              <form action="{% url 'users:delete_account' %}" id="{{ usr.username }}" method="get" name="{{ usr.username }}">
+                <tr>
+                  <td>{{ usr.username }}</td>
+                  <td>{{ usr.first_name }}</td>
+                  <td>{{ usr.last_name }}</td>
+                  <td>{{ usr.date_joined }}</td>
+                  <td class="delete_button_cell">
+                    <button name="delete" value="{{ usr.username }}" form="{{ usr.username }}" class="btn btn-primary" id="{{ usr.username }}" onclick="this.form.submit();">Delete</button>
+                  </td>
+                </tr>
+              </form>
+            {% endfor %}
+          </table>
+        {% else %} <!-- There are no users in the dict -->
+          <h4 id="no_users">There are currently no users that may be deleted.</h4>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}
