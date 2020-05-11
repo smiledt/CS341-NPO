@@ -17,7 +17,7 @@ class Event(models.Model):
     This is an event that the admin Creates
     """
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     date_of_event = models.DateField(default=date.today)
     start_time = models.TimeField()
     end_time = models.TimeField()
