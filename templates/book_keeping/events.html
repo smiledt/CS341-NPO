@@ -33,7 +33,7 @@
             <td>{{ evnt.location }}</td>
             <td>{{ evnt.description }}</td>
             <td>{{ evnt.get_volunteers_needed }}</td>
-            <td class="donate_button_cell">
+            <td class="button_cell">
               <button name="donate" value="{{ evnt.name }}" form="{{ evnt.name }}" class="btn btn-primary" id="{{ evnt.name }}" onclick="this.form.submit();">Donate</button>
             </td>
           </tr>
@@ -56,7 +56,7 @@
             <td>{{ evnt.location }}</td>
             <td>{{ evnt.description }}</td>
             <td>{{ evnt.get_volunteers_needed }}</td>
-            <td class="volunteer_button_cell">
+            <td class="button_cell">
               <button name="volunteer" value="{{ evnt.name }}" form="{{ evnt.name }}" class="btn btn-primary" id="{{ evnt.name }}" onclick="this.form.submit();">Volunteer</button>
             </td>
           </tr>
