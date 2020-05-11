@@ -1,14 +1,7 @@
 {% extends "book_keeping/base.html" %}
 
 {% block content %}
-  <!-- <form method="post" action="{% url 'users:register' %}"> TODO: Use or delete this code!
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button name="submit">Register</button>
-    <input type="hidden" name="next" value="{% url 'book_keeping:index' %}" />
-  </form> -->
-
+  
   <div class="jumbotron">
     {% if registered %}
       <h1>Thank you for registering.</h1>
