@@ -133,7 +133,7 @@ def unvolunteer_list(request):
 
 @login_required
 def unvolunteer_event(request):
-    """ Unovlunteers the user from the event """
+    """ Unvolunteers the user from the event """
     print("TESTING")
     if request.method == 'POST':
         print("Shouldn't be post!!")  # TODO: Debug code, delete later
