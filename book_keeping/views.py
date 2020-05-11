@@ -53,7 +53,7 @@ def new_event(request):
         form = EventForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('book_keeping:admin_events')
+            return admin_events(request, message="Successfully created event: " + request.POST['name'])
 
     context = {'form': form}
     return render(request, 'book_keeping/new_event.html', context)
